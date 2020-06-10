@@ -50,7 +50,175 @@ namespace HackatonOnline
             this.AnnoDiploma = AnnoDiploma;
             this.Città = Città;
         }
+        public interface Personale
+        {
+            [Key]
+            public int Id { get; set; }
+            [Required]
+            public string Nome { get; set; }
+            [Required]
+            public string Cognome { get; set; }
+            [Required]
+            public string Email { get; set; }
+            public int Telefono { get; set; }
+            public DateTime DataNascita { get; set; }
+            [Required]
+            public DateTime DataAssunzione { get; set; }
+        }
+        public class Organizzatore : Personale
+        {
+            [Key]
+            public int Id { get; set; }
+            [Required]
+            public string Nome { get; set; }
+            [Required]
+            public string Cognome { get; set; }
+            [Required]
+            public string Email { get; set; }
+            public int Telefono { get; set; }
+            public DateTime DataNascita { get; set; }
+            [Required]
+            public DateTime DataAssunzione { get; set; }
+            public Organizzatore(int Id, string Nome, string Cognome, string Email, int Telefono, DateTime DataNascita, DateTime DataAssunzione)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+                this.Email = Email;
+                this.Telefono = Telefono;
+                this.DataNascita = DataNascita;
+                this.DataAssunzione = DataAssunzione;
+            }
+            public Organizzatore(int Id, string Nome, string Cognome, string Email, DateTime DataAssunzione)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+                this.Email = Email;
+                this.DataAssunzione = DataAssunzione;
+            }
+        }
+        public class Docente : Personale
+        {
+            [Key]
+            public int Id { get; set; }
+            [Required]
+            public string Nome { get; set; }
+            [Required]
+            public string Cognome { get; set; }
+            [Required]
+            public string Email { get; set; }
+            public int Telefono { get; set; }
+            public DateTime DataNascita { get; set; }
+            [Required]
+            public DateTime DataAssunzione { get; set; }
+            public Docente(int Id, string Nome, string Cognome, string Email, int Telefono, DateTime DataNascita, DateTime DataAssunzione)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+                this.Email = Email;
+                this.Telefono = Telefono;
+                this.DataNascita = DataNascita;
+                this.DataAssunzione = DataAssunzione;
+            }
+            public Docente(int Id, string Nome, string Cognome, string Email, DateTime DataAssunzione)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+                this.Email = Email;
+                this.DataAssunzione = DataAssunzione;
+            }
+        }
+        public class Tutor : Personale
+        {
+            [Key]
+            public int Id { get; set; }
+            [Required]
+            public string Nome { get; set; }
+            [Required]
+            public string Cognome { get; set; }
+            [Required]
+            public string Email { get; set; }
+            public int Telefono { get; set; }
+            public DateTime DataNascita { get; set; }
+            [Required]
+            public DateTime DataAssunzione { get; set; }
+            public Tutor(int Id, string Nome, string Cognome, string Email, int Telefono, DateTime DataNascita, DateTime DataAssunzione)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+                this.Email = Email;
+                this.Telefono = Telefono;
+                this.DataNascita = DataNascita;
+                this.DataAssunzione = DataAssunzione;
+            }
+            public Tutor(int Id, string Nome, string Cognome, string Email, DateTime DataAssunzione)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+                this.Email = Email;
+                this.DataAssunzione = DataAssunzione;
+            }
+        }
+        public class Corso
+        {
+            [Key]
+            public int Id { get; set; }
+            [Required]
+            public string Nome { get; set; }
+            [Required]
+            public DateTime DataInizio { get; set; }
+            public DateTime DataFine { get; set; }
+            [Required]
+            public string Sede { get; set; }
+            [Required]
+            public string AnnoAccademico { get; set; }
+            public int OrganizzatoreId { get; set; }
+
+            public Corso(int Id, string Nome, DateTime DataInizio, DateTime DataFine, string Sede, string AnnoAccademico, int OrganizzatoreId)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.DataInizio = DataInizio;
+                this.DataFine = DataFine;
+                this.Sede = Sede;
+                this.AnnoAccademico = AnnoAccademico;
+                this.OrganizzatoreId = OrganizzatoreId;
+            }
+            public Corso(int Id, string Nome, DateTime DataInizio, string Sede, string AnnoAccademico, int OrganizzatoreId)
+            {
+                this.Id = Id;
+                this.Nome = Nome;
+                this.DataInizio = DataInizio;
+                this.Sede = Sede;
+                this.AnnoAccademico = AnnoAccademico;
+                this.OrganizzatoreId = OrganizzatoreId;
+            }
+        }
+        public class Iscrizione
+        {
+            [Key]
+            public int Id { get; set; }
+            [Required]
+            public int CorsoId { get; set; }
+            [Required]
+            public int StudenteId { get; set; }
+            [Required]
+            public DateTime DataIscrizione { get; set; }
+            public Iscrizione(int Id, int Corso, int Studente, DateTime DataIscrizione)
+            {
+                this.Id = Id;
+                this.CorsoId = Corso;
+                this.StudenteId = Studente;
+                this.DataIscrizione = DataIscrizione;
+            }
+        }
     }
+
     public class Esame
     {
         [Key]
@@ -63,10 +231,6 @@ namespace HackatonOnline
         public DateTime Data { get; set; }
         [Required]
         public int StudenteId { get; set; }
-        [Required]
-
-
-
 
         public Esame (int Id, int Punteggio, string Modulo, DateTime Data, int StudenteId)
         {
@@ -75,7 +239,6 @@ namespace HackatonOnline
             this.Modulo = Modulo;
             this.Data = Data;
             this.StudenteId = StudenteId;
-
         }
     }
     public class Modulo
@@ -86,6 +249,7 @@ namespace HackatonOnline
         public DateTime DataInizio { get; set; }
         public DateTime DataFine {get; set;}
         public string Materia { get; set; }
+        [Required]
         public string Nome { get; set; }
         [Required]
         public int CorsoId { get; set; }
@@ -93,8 +257,6 @@ namespace HackatonOnline
         public int DocenteId { get; set; }
         [Required]
         public int TutorId { get; set; }
-        [Required]
-
 
         public Modulo(int Id, DateTime DataInizio, DateTime DataFine, string Materia, string Nome, int CorsoId, int DocenteId, int TuttorId)
         {
@@ -108,7 +270,15 @@ namespace HackatonOnline
             this.TutorId = TutorId;
 
         }
+        public Modulo(int Id, DateTime DataInizio, string Nome, int CorsoId, int DocenteId, int TuttorId)
+        {
+            this.Id = Id;
+            this.DataInizio = DataInizio;
+            this.Nome = Nome;
+            this.CorsoId = CorsoId;
+            this.DocenteId = DocenteId;
+            this.TutorId = TutorId;
 
+        }
     }
-    
 }
