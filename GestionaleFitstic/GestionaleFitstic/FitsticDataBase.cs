@@ -20,7 +20,7 @@ namespace GestionaleFitstic
         [Required]
         public string Email { get; set; }
         [Required]
-        public DateTime AnnoDiploma { get; set; }
+        public DateTime.Year AnnoDiploma { get; set; }
         public string Indirizzo { get; set; }
         public int Telefono { get; set; }
         [Required]
