@@ -1,0 +1,53 @@
+﻿@page "/Corsi"
+
+@using GestionaleFitstic.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext dbCorso
+
+<h1>Gestione Studenti FITSTIC </h1>
+
+<p>Pagina Web per la gestione corsi</p>
+
+@if (databaseCorso == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Data Inizio</th>
+                <th>Data Fine</th>
+                <th>Sede</th>
+                <th>Anno Accademico</th>
+                <th>OrganizzatoreId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var databasecorsi in databaseCorso)
+            {
+            <tr>
+                <td>@databasecorsi.Id</td>
+                <td>@databaseorganizzatore.Nome</td>
+                <td>@databaseorganizzatore.DataInizio</td>
+                <td>@databaseorganizzatore.DataFine</td>
+                <td>@databaseorganizzatore.Sede</td>
+                <td>@databaseorganizzatore.AnnoAccademico</td>
+                <td>@databaseorganizzatore.OrganizzatoreId</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Corso[] databaseCorso;
+
+    protected override async Task OnInitializedAsync()
+    {
+        databaseCorso = await dbCorso.Corsi.ToArrayAsync();
+    }
+}

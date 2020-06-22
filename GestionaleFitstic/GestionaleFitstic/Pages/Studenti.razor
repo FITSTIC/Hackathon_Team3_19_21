@@ -1,0 +1,60 @@
+﻿@page "/Studenti"
+
+@using GestionaleFitstic.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext dbStudenti
+
+<h1>Gestione Studenti FITSTIC </h1>
+
+<p>Pagina Web per l'iscrizone, rimossione degi studenti</p>
+
+@if (databasestudenti == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Data Nascita</th>
+                <th>Tipo Diploma</th>
+                <th>Email</th>
+                <th>Anno Diploma</th>
+                <th>Indirizzo</th>
+                <th>Telefono</th>
+                <th>Città</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var databasestudente in databasestudenti)
+            {
+            <tr>
+                <td>@databasestudente.Id</td>
+                <td>@databasestudente.Nome</td>
+                <td>@databasestudente.Cognome</td>
+                <td>@databasestudente.DataNascita.ToShortDateString()</td>
+                <td>@databasestudente.TipoDiploma</td>
+                <td>@databasestudente.Email</td>
+                <td>@databasestudente.AnnoDiploma.ToShortDateString()</td>
+                <td>@databasestudente.Indirizzo</td>
+                <td>@databasestudente.Telefono</td>
+                <td>@databasestudente.Città</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Studente[] databasestudenti;
+
+    protected override async Task OnInitializedAsync()
+    {
+        databasestudenti = await dbStudenti.Studenti.ToArrayAsync();
+    }
+}

@@ -1,0 +1,47 @@
+﻿@page "/Iscrizioni"
+
+@using GestionaleFitstic.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext dbIscrizione
+
+<h1>Gestione Studenti FITSTIC </h1>
+
+<p>Pagina Web per la gestione iscrizioni</p>
+
+@if (databaseIscrizione == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CorsoId</th>
+                <th>StudenteId</th>
+                <th>Data Iscrizione</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var databaseiscrizioni in databaseIscrizione)
+            {
+            <tr>
+                <td>@databaseiscrizioni.Id</td>
+                <td>@databaseiscrizioni.CorsoId</td>
+                <td>@databaseiscrizioni.StudenteId</td>
+                <td>@databaseiscrizioni.DataIscrizione.ToShortDateString()</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Iscrizione[] databaseIscrizione;
+
+    protected override async Task OnInitializedAsync()
+    {
+        databaseIscrizione = await dbIscrizione.Iscrizioni.ToArrayAsync();
+    }
+}
